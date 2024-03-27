@@ -17,12 +17,15 @@ class CityAndCompanyView: UIView {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    func setData(city: String, company: String) {
+        self.cityLabel.text = city
+        self.companyLabel.text = company
+    }
     private let cityLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.textColor = .white
         label.font = UIFont.systemFont(ofSize: 14, weight: .regular)
-        label.text = "Минск"
         return label
     }()
     
@@ -31,7 +34,6 @@ class CityAndCompanyView: UIView {
         label.translatesAutoresizingMaskIntoConstraints = false
         label.textColor = .white
         label.font = UIFont.systemFont(ofSize: 14, weight: .regular)
-        label.text = "Мобирикс"
         return label
     }()
     

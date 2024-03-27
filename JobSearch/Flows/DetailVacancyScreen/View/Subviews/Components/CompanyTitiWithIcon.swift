@@ -13,13 +13,14 @@ class CompanyTitiWithIcon: UIView {
         setSubviews()
         activateLayout()
     }
-    
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    func setText(_ text: String) {
+        companyTitle.text = text
+    }
     private let companyTitle: UILabel = {
         let label = UILabel()
-        label.text = "Мобирикс"
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = UIFont.systemFont(ofSize: 16, weight: .medium)
         label.textColor = .white

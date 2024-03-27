@@ -13,22 +13,23 @@ class LookingDisplayView: UIView {
         setSubviews()
         activateLayout()
     }
+    func setData(appliedText: String, lookingText: String){
+        appliedNumberView.setText(appliedText)
+        lookingNumberView.setText(lookingText)
+    }
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    private var appliedNumberView: UIView = {
-        let view = LookingView(descroption: "человек уже откликнулись", icon: UIImage(named:  "personProfile")!)
+    private var appliedNumberView: LookingView = {
+        let view = LookingView(icon: .appliedView)
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
-    
-    private let lookingNumberView: UIView = {
-        let view = LookingView(descroption: "2 человека сейчас смотрят", icon:  UIImage(named: "personProfile")!)
+    private let lookingNumberView: LookingView = {
+        let view = LookingView(icon: .lookingView)
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
-    
-    
     private func setSubviews(){
         addSubview(appliedNumberView)
         addSubview(lookingNumberView)

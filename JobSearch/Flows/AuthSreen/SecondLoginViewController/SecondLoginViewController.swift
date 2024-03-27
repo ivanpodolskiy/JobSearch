@@ -10,8 +10,10 @@ import Combine
 
 class SecondLoginViewController: UIViewController {
     private var mail: String
-    init(mail: String) {
+    private var callback: () -> ()
+    init(mail: String, callback: @escaping () -> ()) {
         self.mail = mail
+        self.callback = callback
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -87,12 +89,12 @@ class SecondLoginViewController: UIViewController {
         let attributedString = NSAttributedString(string: "Подтвердить", attributes: attributes)
         
         button.setAttributedTitle(attributedString, for: .normal)
-        //button.addTarget(self, action: #selector(buttonTapped), for: .touchUpInside)
         return button
     }()
     
     @objc private func tapButton(_ sender: UIButton) {
-        
+        navigationController?.popViewController(animated: true)
+        self.callback()
     }
     
     private func setSubviews() {

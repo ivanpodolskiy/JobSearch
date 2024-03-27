@@ -8,15 +8,23 @@
 import UIKit
 
 class LookingView: UIView {
-    init(descroption: String, icon: UIImage) {
+    enum IconType: String, CaseIterable{
+        case appliedView  = "applied"
+        case lookingView = "looking"
+    }
+    init(icon: IconType) {
         super.init(frame: .zero)
-        lookingInfoLabel.text  = descroption
-        iconImage.image = icon.withTintColor(.white, renderingMode: .alwaysOriginal)
+        print (icon.rawValue)
         setSubviews()
         activateLayout()
+        iconImage.image = UIImage(named: icon.rawValue)
+
     }
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    func setText(_ text: String) {
+        lookingInfoLabel.text = text
     }
     
     private let containerView: UIView = {
@@ -36,8 +44,6 @@ class LookingView: UIView {
     }()
     private let iconImage:  UIImageView = {
         let imageView = UIImageView()
-        imageView.layer.cornerRadius = 10
-        imageView.backgroundColor = .specialGreen
         imageView.translatesAutoresizingMaskIntoConstraints = false
         return imageView
     }()

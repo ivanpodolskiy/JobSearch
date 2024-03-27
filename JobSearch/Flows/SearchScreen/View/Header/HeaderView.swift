@@ -9,7 +9,6 @@ import UIKit
 
 class HeaderView: UIView {
     private var adapter: RecommendationsCollectionViewAdapter?
-
     override init(frame: CGRect) {
         super.init(frame: frame)
         setSubiews()

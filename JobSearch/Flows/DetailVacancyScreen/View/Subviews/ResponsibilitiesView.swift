@@ -17,6 +17,9 @@ class ResponsibilitiesView: UIView {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    func setText(_ text: String) {
+        descriptionLabel.text = text
+    }
     private  let responsibilitiesTitle: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -31,7 +34,6 @@ class ResponsibilitiesView: UIView {
         label.font = UIFont.systemFont(ofSize: 14, weight: .regular)
         label.textColor = .white
         label.numberOfLines = 0
-        label.text = "-Проектировать пользовательский опыт, проводить UX исследования; -Разрабатывать адаптивный дизайн интерфейса для мобильных приложений; -Разрабатывать быстрые прототипы для тестирования идеи дизайна и их последующая; интеграция на основе обратной связи от команды и пользователей; -Взаимодействовать с командой разработчиков для обеспечения точной реализации ваших дизайнов; -Анализ пользовательского опыта и адаптация под тренды."
         return label
     }()
     private func setSubiews() {

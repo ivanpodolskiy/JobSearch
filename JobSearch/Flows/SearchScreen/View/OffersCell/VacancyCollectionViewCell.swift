@@ -7,18 +7,38 @@
 
 import UIKit
 
-
+struct VacanciyCell {
+    var title: String
+    var salary: String?
+    var city: String
+    var company: String
+    var publicationDate: String
+    var experience: String
+    var numberOfView: Int?
+    var isFavorite: Bool
+    
+    init(from vacanciyItem: VacancyItem) {
+        self.title = vacanciyItem.vacancyDetail.title
+        self.salary = vacanciyItem.vacancyDetail.salary
+        self.city = "город"
+        self.company = vacanciyItem.company
+        self.publicationDate = vacanciyItem.publishedDate
+        self.experience = vacanciyItem.vacancyDetail.experience
+        self.numberOfView = vacanciyItem.lookingAppliedNumber?.lookingNumber
+        self.isFavorite = vacanciyItem.isFavorite
+    }
+}
 class VacancyCollectionViewCell: UICollectionViewCell {
     struct Constant {
         static let indentation: CGFloat = 16
         static let spacing: CGFloat = 10
     }
     private var viewWidth: CGFloat = 0
-  
 
     override func prepareForReuse() {
         super.prepareForReuse()
         salaryLabel.removeFromSuperview()
+        numberOfviewsLabel.removeFromSuperview()
     }
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -29,6 +49,31 @@ class VacancyCollectionViewCell: UICollectionViewCell {
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    func configure(vacanciyCell: VacanciyCell, favoriteCallback: @escaping (Bool) -> Void) {
+        if let numberOfView = vacanciyCell.numberOfView  {
+            self.numberOfviewsLabel.text = "Сейчас просматривает \(numberOfView) человек"
+            self.stackView.insertArrangedSubview(numberOfviewsLabel, at: 0)
+        }
+        postTitle.text = vacanciyCell.title
+        if let salary = vacanciyCell.salary {
+            self.salaryLabel.text = salary
+            self.stackView.insertArrangedSubview(salaryLabel, at: 2)
+
+        }
+        cityAndCompanyView.setData(city: vacanciyCell.city, company: vacanciyCell.company)
+        experienceView.setText(vacanciyCell.experience)
+        publicationDateLabel.text = "Опубликовано \(vacanciyCell.publicationDate)"
+        favoriteButton.isSelected = vacanciyCell.isFavorite
+        self.favoriteCallback = favoriteCallback
+        
+    }
+    
+    private var favoriteCallback: ((Bool) -> Void)?
+    
+    @objc private func favoriteButtonTap(_ sender: UIButton) {
+        favoriteButton.isSelected.toggle()
+        favoriteCallback?(sender.isSelected)
     }
     
     private let containerView: UIView = {
@@ -54,7 +99,6 @@ class VacancyCollectionViewCell: UICollectionViewCell {
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = UIFont.systemFont(ofSize: 14, weight: .regular)
         label.textColor = .specialGreen
-        label.text = "Сейчас просматривает 1 человек"
         return label
     }()
     private let postTitle: UILabel = {
@@ -62,7 +106,6 @@ class VacancyCollectionViewCell: UICollectionViewCell {
         label.textColor = .white
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = UIFont.systemFont(ofSize: 14, weight: .medium)
-        label.text = "UI/UX Designer"
         return label
     }()
     
@@ -70,12 +113,11 @@ class VacancyCollectionViewCell: UICollectionViewCell {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.textColor = .white
-        label.text = "1500-2900 Br"
         label.font = UIFont.systemFont(ofSize: 20, weight: .semibold)
         return label
     }()
     
-    private let cityAndCompanyView: UIView = {
+    private let cityAndCompanyView: CityAndCompanyView = {
         let view = CityAndCompanyView()
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
@@ -85,22 +127,21 @@ class VacancyCollectionViewCell: UICollectionViewCell {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = UIFont.systemFont(ofSize: 14, weight: .regular)
-        label.text = "Опубликовано 16 февраля"
         label.textColor = UIColor.gray
         return label
     }()
-    private let experienceView: UIView = {
+    private let experienceView: ExperienceView = {
         let view = ExperienceView()
         view.translatesAutoresizingMaskIntoConstraints = false
-        view.backgroundColor = .yellow
         return view
     }()
     
-    private let favoriteButton: UIButton = {
+    private lazy var favoriteButton: UIButton = {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
         button.setImage(UIImage(named: "favorite"), for: .normal)
         button.setImage(UIImage(named: "favorite.fill"), for: .selected)
+        button.addTarget(self, action: #selector(favoriteButtonTap), for: .touchUpInside)
         return button
     }()
     
@@ -124,9 +165,9 @@ class VacancyCollectionViewCell: UICollectionViewCell {
         addSubview(containerView)
         containerView.addSubview(stackView)
         
-        stackView.addArrangedSubview(numberOfviewsLabel)
         stackView.addArrangedSubview(postTitle)
         stackView.addArrangedSubview(cityAndCompanyView)
+        stackView.addArrangedSubview(experienceView)
         stackView.addArrangedSubview(publicationDateLabel)
         
         containerView.addSubview(favoriteButton)
@@ -160,11 +201,6 @@ class VacancyCollectionViewCell: UICollectionViewCell {
             respondButton.rightAnchor.constraint(equalTo: containerView.rightAnchor, constant: -Constant.indentation),
             respondButton.bottomAnchor.constraint(equalTo: containerView.bottomAnchor, constant: -Constant.indentation),
         ])
-    }
-}
-extension VacancyCollectionViewCell {
-    func setSalaryLabel() {
-        stackView.insertArrangedSubview(salaryLabel, at: 2)
     }
 }
 

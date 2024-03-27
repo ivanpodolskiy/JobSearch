@@ -14,7 +14,6 @@ final class AppCoordinator {
     private let mainCoordinator: MainCoordinator
     private var authCoordinator: AuthCoordinator?
     private var cancellables = Set<AnyCancellable>()
-    private let navigationController = UINavigationController()
     
     init(window: UIWindow) {
         self.window = window
@@ -31,7 +30,6 @@ final class AppCoordinator {
     
     private func showMainFlow() {
         mainCoordinator.start()
-        navigationController.removeFromParent()
     }
     private func showAuthFlow() {
         let navigationController = UINavigationController()
@@ -91,6 +89,7 @@ class AuthCoordinator {
     }
     
     func start() {
+        presentingViewController.view.backgroundColor = .black
         let authViewController = FirstLoginViewController()
         authViewController.setCoordinator(self)
         authViewController.modalPresentationStyle = .fullScreen

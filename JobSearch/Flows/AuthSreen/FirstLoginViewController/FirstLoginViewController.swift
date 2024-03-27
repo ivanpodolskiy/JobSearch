@@ -9,15 +9,27 @@ import UIKit
 import Combine
 
 class FirstLoginViewController: UIViewController {
+    private var coordinator: AuthCoordinator?
+    func setCoordinator(_ coordinator: AuthCoordinator) {
+        self.coordinator = coordinator
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setSubiews()
         activateLayout()
+        
         applicantLoginView.buttonAction = {[weak self] mail in
             guard let self = self else { return }
-            print (mail)
-            let newScreen = SecondLoginViewController(mail: mail)
+            let newScreen = SecondLoginViewController(mail: mail, callback: {
+                self.finishAuthenticationAndDismiss()
+            })
             present(newScreen, animated: true)
+        }
+    }
+    private func finishAuthenticationAndDismiss() {
+        dismiss(animated: true) {
+            self.coordinator?.didFinishAuthentication()
         }
     }
     

@@ -1,5 +1,5 @@
 //
-//  JobsAPI.swift
+//  JobDataAPI.swift
 //  JobSearch
 //
 //  Created by user on 18.03.2024.
@@ -32,7 +32,7 @@ struct Vacancy: Codable {
     let company: String
     let experience: Experience
     let publishedDate: String
-    let isFavorite: Bool
+    var isFavorite: Bool
     let salary: Salary
     let schedules: [String]
     let appliedNumber: Int?

@@ -13,11 +13,13 @@ class ExperienceView: UIView {
         setSubiews()
         activateLayout()
     }
-    
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
+    func setText(_ text: String) {
+        experienceLabel.text = text
+    }
     private let icon: UIImageView = {
         let imageView = UIImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
@@ -29,7 +31,7 @@ class ExperienceView: UIView {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = UIFont.systemFont(ofSize: 14, weight: .regular)
-        label.text = "Опыт от 1 года до 3 лет"
+        label.textColor = .white
         return label
     }()
     
@@ -39,12 +41,14 @@ class ExperienceView: UIView {
     }
     private func activateLayout() {
         NSLayoutConstraint.activate([
-            icon.leftAnchor.constraint(equalTo: leftAnchor),
             icon.centerYAnchor.constraint(equalTo: experienceLabel.centerYAnchor),
-            icon.rightAnchor.constraint(equalTo: experienceLabel.leftAnchor, constant: 8),
+            icon.leftAnchor.constraint(equalTo: leftAnchor),
+            icon.heightAnchor.constraint(equalToConstant: 16),
+            icon.widthAnchor.constraint(equalToConstant: 16),
             
             experienceLabel.topAnchor.constraint(equalTo: topAnchor),
-            experienceLabel.rightAnchor.constraint(equalTo: rightAnchor),
+            experienceLabel.leftAnchor.constraint(equalTo: icon.rightAnchor, constant: 8),
+            experienceLabel.rightAnchor.constraint(equalTo: rightAnchor, constant: -8),
             experienceLabel.bottomAnchor.constraint(equalTo: bottomAnchor),
         ])
     }

@@ -39,21 +39,17 @@ class LoginTextField: UIView {
     
     private func setupTextFiled() {
         let attributes: [NSAttributedString.Key: Any] = [
-            .font: UIFont.systemFont(ofSize: 14, weight: .regular), // ваш шрифт
-            .foregroundColor: UIColor.gray // ваш цвет текста
+            .font: UIFont.systemFont(ofSize: 14, weight: .regular),
+            .foregroundColor: UIColor.gray
         ]
         let placeholderText = NSAttributedString(string: "Электронная почта или телефон", attributes: attributes)
         
-        // Установка атрибутированной строки как плейсхолдера
         customTextField.attributedPlaceholder = placeholderText
-        // Установка текстового выравнивания
         customTextField.textAlignment = .left
         
-        // Создание изображения для плейсхолдера
         let imageView = UIImageView(image: placeholderIcon)
         imageView.contentMode = .center
         
-        // Установка изображения в качестве leftView
         customTextField.leftView = imageView
         customTextField.leftViewMode = .unlessEditing
         customTextField.textColor = .white
@@ -87,7 +83,6 @@ class ClearingTextField: UITextField {
         button.setImage(UIImage(named: "clear"), for: .normal)
         return button
     }()
-    
     
     private func setupTextField() {
         clearButton.isHidden = true

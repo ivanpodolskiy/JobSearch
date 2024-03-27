@@ -13,9 +13,13 @@ class ExperienceAndSchedulesView: UIView {
         setSubiews()
         activateLayout()
     }
-    
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    func setData(experience: String, schedules: String) {
+        experienceLabel.text = "Требуемый опыт: \(experience)"
+        schedulesLabel.text = schedules
     }
     private let experienceLabel: UILabel = {
         let label = UILabel()
@@ -31,7 +35,6 @@ class ExperienceAndSchedulesView: UIView {
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = UIFont.systemFont(ofSize: 14, weight: .regular)
         label.textColor = .white
-        label.text = "Полная занятость, полный день"
         return label
     }()
     

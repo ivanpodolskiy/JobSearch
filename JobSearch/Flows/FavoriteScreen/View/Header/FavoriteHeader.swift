@@ -30,10 +30,12 @@ class FavoriteHeader: UICollectionReusableView {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = UIFont.systemFont(ofSize: 14, weight: .regular)
-        label.text = "6 вакансия"
         label.textColor = .gray
         return label
     }()
+    func setText(_ text: String) {
+        numberVacancyLablel.text = text
+    }
     
     private func setSubviews() {
         addSubview(titleLabel)
@@ -41,7 +43,7 @@ class FavoriteHeader: UICollectionReusableView {
     }
     private func activateLayout() {
         NSLayoutConstraint.activate([
-            titleLabel.topAnchor.constraint(equalTo: topAnchor),
+            titleLabel.topAnchor.constraint(equalTo: topAnchor, constant: 10),
             titleLabel.leftAnchor.constraint(equalTo: leftAnchor, constant: 16),
             titleLabel.rightAnchor.constraint(equalTo: rightAnchor, constant: -16),
 

@@ -9,6 +9,8 @@ import UIKit
 import Combine
 
 class ApplicantLoginView: UIView  {
+    var buttonAction: ((String) -> Void)?
+
     private var showsError: Bool  {
         get { return self.showsError}
         set {
@@ -21,10 +23,8 @@ class ApplicantLoginView: UIView  {
                 errorLabel.removeFromSuperview()
                 textField.layer.borderWidth = 0
             }
-            
         }
     }
-    var buttonAction: ((String) -> Void)?
     
     private let stackView: UIStackView = {
         let stackView = UIStackView()
@@ -63,7 +63,6 @@ class ApplicantLoginView: UIView  {
             .sink { [weak self] text in
                 guard let self = self else { return }
                 
-                print ( !text.isEmpty)
                 self.showsError = false
                 self.nextButton.isEnabled = !text.isEmpty
                 self.nextButton.backgroundColor = !text.isEmpty ? .specialBlue : .specialDarkBlue

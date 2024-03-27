@@ -5,4 +5,21 @@
 //  Created by user on 18.03.2024.
 //
 
-import Foundation
+enum DataError {
+    case notitems
+}
+enum NetworkError: Error {
+    case noData
+    case badURL
+    case notFound
+    case serverError
+    case decodingError
+    case badRequest
+    case customError(String)
+    case unauthorized
+    case forbidden
+    case unknown(Int)
+    case notConnectedToInternet
+    case dataError(DataError)
+    case invalidResponse
+}

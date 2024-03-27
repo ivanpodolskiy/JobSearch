@@ -16,6 +16,10 @@ class CompanyLocationView: UIView {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    func setData(address: String, company: String) {
+        addressLabel.text = address
+        companyTitiWithIcon.setText(company)
+    }
     
     private let containerView: UIView = {
         let view = UIView()
@@ -33,7 +37,6 @@ class CompanyLocationView: UIView {
         stackView.distribution = .fill
         return stackView
     }()
-    
     private let companyTitiWithIcon: CompanyTitiWithIcon = {
         let view = CompanyTitiWithIcon(frame: .zero)
         view.translatesAutoresizingMaskIntoConstraints = false
@@ -47,9 +50,8 @@ class CompanyLocationView: UIView {
         imageView.image = UIImage(named: "map")
         return imageView
     }()
-    private let addressLable: UILabel = {
+    private let addressLabel: UILabel = {
         let label = UILabel()
-        label.text = "Минск, улица Бирюзова, 4/5"
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = UIFont.systemFont(ofSize: 14, weight: .regular)
         label.textColor = .white
@@ -62,7 +64,7 @@ class CompanyLocationView: UIView {
         containerView.addSubview(stackView)
         stackView.addArrangedSubview(companyTitiWithIcon)
         stackView.addArrangedSubview(mapLoaction)
-        stackView.addArrangedSubview(addressLable)
+        stackView.addArrangedSubview(addressLabel)
         addSubview(stackView)
     }
     private func activateLayout() {
@@ -72,10 +74,10 @@ class CompanyLocationView: UIView {
             containerView.rightAnchor.constraint(equalTo: rightAnchor),
             containerView.bottomAnchor.constraint(equalTo: bottomAnchor),
             
-            stackView.topAnchor.constraint(equalTo: containerView.topAnchor, constant: 12),
-            stackView.leftAnchor.constraint(equalTo: containerView.leftAnchor, constant: 16),
-            stackView.rightAnchor.constraint(equalTo: containerView.rightAnchor, constant: -16),
-            stackView.bottomAnchor.constraint(equalTo: containerView.bottomAnchor, constant: -16)
+            stackView.topAnchor.constraint(equalTo: topAnchor, constant: 12),
+            stackView.leftAnchor.constraint(equalTo: leftAnchor, constant: 16),
+            stackView.rightAnchor.constraint(equalTo: rightAnchor, constant: -16),
+            stackView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -16)
         ])
     }
 }
